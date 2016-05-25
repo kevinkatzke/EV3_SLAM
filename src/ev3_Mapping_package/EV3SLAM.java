@@ -34,56 +34,41 @@ public class EV3SLAM {
 	 * One full turn of a wheel results in a distance traveled of 13.195 cm (2 *
 	 * PI * WheelRadius = 2 * PI * 2.1 = 13.195)
 	 * 
+	 * - Motor.C.resetTachoCount();
+	 * - pilot.travel(13.195);
+	 * - System.out.println(Motor.C.getTachoCount());
+	 * Should print out: 360
 	 * 
 	 */
 
 	public static void main(String[] args) throws Exception {
-		// Initialization of the UltraSonicDIstance Class
+		// Initialization of the EV3SLAM Class
 		new EV3SLAM();
 	}
 
 	public EV3SLAM() throws IOException {
 		
 		Robot robot = new Robot(4.2, 11.5); // parameters in cm
-		pilot = new DifferentialPilot(4.2f, 11.5f, Motor.B, Motor.C); 
-		
+		pilot = new DifferentialPilot(4.2f, 11.5f, Motor.B, Motor.C); // parameters in cm
 		
 		EV3UltrasonicSensor us = new EV3UltrasonicSensor(SensorPort.S2);
 		SampleProvider distanceMode = us.getDistanceMode();
-		us.enable();
 
 		// We initialize an instance of our own Ultrasonic Class
 		ultrasonic = new Ultrasonic(distanceMode);
-
-		Motor.C.resetTachoCount();
-		System.out.println(Motor.C.getTachoCount());
-		Delay.msDelay(4000);
-		pilot.travel(13.195);
-		System.out.println(Motor.C.getTachoCount());
-		Delay.msDelay(4000);
-		Motor.C.resetTachoCount();
 		
 		while ((Motor.C.getTachoCount()) < robot.fullSpinWheelTacho) {
 			pilot.rotate(360 / 36);
-			float distance = scanEnvironment();
+			float distance = ultrasonic.distance();
 			environmentCoordinates.add(distance);
 		}
 
-		// Works better then stopping one motor first and then the other
 		pilot.stop();
 
 		// We create a new instance of the SaveFile-Class
-		// And we save all the measurement-coordinates in it.
+		// And we save all the measurement-coordinates to it.
 		SaveFile save = new SaveFile();
 		save.saveToFile("coordinates", environmentCoordinates);
-	}
-
-	// FUnction that is responsible to perform Ultrasonic Scans
-	public float scanEnvironment() {
-		// We here save a copy of whatever the distance is
-		// in our Ultrasonic Class
-		float distance = ultrasonic.distance();
-		return distance;
 	}
 
 }
