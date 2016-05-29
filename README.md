@@ -1,5 +1,9 @@
 # EV3_SLAM
 
+This project represents the attempt to devlelop a complete SLAM-Implementation for the Lego Mindstorms EV3 robot. 
+
+Current status: ###----------------- 15%
+
 ## Setting up the workspace
 
 First of all you have to correctly set up your workspace and install leJOS on your Lego Mindstorms EV3. 
