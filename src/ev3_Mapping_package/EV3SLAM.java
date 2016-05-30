@@ -57,7 +57,7 @@ public class EV3SLAM {
 		// We initialize an instance of our own Ultrasonic Class
 		ultrasonic = new Ultrasonic(distanceMode);
 		
-		while ((Motor.C.getTachoCount()) < robot.fullSpinWheelTacho) {
+		while ((Motor.C.getTachoCount()) < robot.getFullSpinWheelTacho()) {
 			pilot.rotate(360 / 36);
 			float distance = ultrasonic.distance();
 			environmentCoordinates.add(distance);

@@ -2,29 +2,29 @@ package ev3_Mapping_package;
 
 public class Robot {
 	
-	double distanceWheels;
-	double wheelDiamenter;
-	double wheelCircumference;
-	double spinCircumference;
-	double fullSpinWheelTacho;
+	private double distanceWheels;
+	private double wheelDiameter;
+	private double wheelCircumference;
+	private double spinCircumference;
+	private double fullSpinWheelTacho;
 
 	public Robot(double wheelDiameter, double distanceWheels){
-		this.wheelDiamenter = wheelDiameter;
+		this.wheelDiameter = wheelDiameter;
 		this.distanceWheels = distanceWheels;
-		this.wheelCircumference = (2 * Math.PI * wheelDiameter / 2);
-		this.spinCircumference = (2 * Math.PI * distanceWheels / 2);
+		this.wheelCircumference = (2 * Math.PI * this.wheelDiameter / 2);
+		this.spinCircumference = (2 * Math.PI * this.distanceWheels / 2);
 		this.fullSpinWheelTacho = ((spinCircumference / wheelCircumference) * 360);
 	}
 	
-	public double wheelCircumference(){
+	public double getWheelCircumference(){
 		return wheelCircumference;
 	}
 
-	public double spinCircumference(){
+	public double getSpinCircumference(){
 		return spinCircumference;
 	}
 
-	public double fullSpinWheelTacho(){
+	public double getFullSpinWheelTacho(){
 		return fullSpinWheelTacho;
 	}
 	
